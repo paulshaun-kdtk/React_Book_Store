@@ -7,7 +7,7 @@ function Components() {
     <div className="Container">
       <Header />
       <div>
-        Components
+        categories
       </div>
 
     </div>

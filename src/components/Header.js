@@ -11,7 +11,7 @@ function Header() {
         </h1>
         <ul className="menu">
           <li><Link to="/books">books</Link></li>
-          <li><Link to="/components">Components</Link></li>
+          <li><Link to="/categories">categories</Link></li>
         </ul>
       </nav>
     </div>
