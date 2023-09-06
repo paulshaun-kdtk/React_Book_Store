@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import './Main.css';
-import './Book.css';
+import { useDispatch } from 'react-redux';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import Header from './Header';
 import 'react-circular-progressbar/dist/styles.css';
+import './Book.css';
+import './Main.css';
 
 function Book({
-  title, author, progress, category, onProgressUpdate,
+  title, author, progress, category, onProgressUpdate, onRemoveBook,
 }) {
   return (
     <div className="bookCard">
@@ -32,7 +33,7 @@ function Book({
             </span>
 
             <ul className="list">
-              <li>remove</li>
+              <li onClick={onRemoveBook} className="firstListItem">remove</li>
               <li>edit</li>
               <li>delete</li>
             </ul>
@@ -56,7 +57,6 @@ function Book({
           <i>Current Chapter</i>
           <button type="button" onClick={onProgressUpdate}>Update Progress</button>
         </div>
-
       </div>
     </div>
   );
@@ -90,24 +90,41 @@ function AdditionForm() {
   const [author, setAuthor] = useState('');
   const [category, setCategory] = useState('');
   const [books, setBooks] = useLocalStorage('books', []);
+  const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setBooks((prevBooks) => [
-      ...prevBooks,
-      {
-        title, author, category, progress: 0,
-      },
-    ]);
+    const newBook = {
+      title, author, category, progress: 0,
+    };
+    dispatch({
+      type: 'ADD_BOOK',
+      payload: newBook,
+    });
+    setBooks([...books, newBook]);
     setTitle('');
     setAuthor('');
     setCategory('');
   };
 
   const onUpdateProgressBarClick = (index) => {
-    setBooks((prevBooks) => prevBooks.map((book, i) => (i === index
-      ? { ...book, progress: Math.min(book.progress + 5, 100) }
-      : book)));
+    dispatch({
+      type: 'UPDATE_PROGRESS',
+      payload: { index },
+    });
+    const updatedBooks = [...books];
+    updatedBooks[index].progress += 1;
+    setBooks(updatedBooks);
+  };
+
+  const onRemoveBookClick = (index) => {
+    dispatch({
+      type: 'REMOVE_BOOK',
+      payload: { index },
+    });
+    const updatedBooks = [...books];
+    updatedBooks.splice(index, 1);
+    setBooks(updatedBooks);
   };
 
   return (
@@ -122,6 +139,7 @@ function AdditionForm() {
             progress={book.progress}
             category={book.category}
             onProgressUpdate={() => onUpdateProgressBarClick(index)}
+            onRemoveBook={() => onRemoveBookClick(index)}
           />
         ))}
       </div>
