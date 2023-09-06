@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import './Main.css';
-import Header from './Header';
+import '../../components/Main.css';
+import Header from '../../components/Header';
+
+// end imports
 
 function Components() {
   const [isLoading, setIsLoading] = useState(true);

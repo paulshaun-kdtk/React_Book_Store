@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import Header from './Header';
 import 'react-circular-progressbar/dist/styles.css';
-import './Book.css';
-import './Main.css';
+import Header from '../../components/Header';
+import '../../components/Book.css';
+import '../../components/Main.css';
+
+// end imports
 
 function Book({
   title, author, progress, category, onProgressUpdate, onRemoveBook,

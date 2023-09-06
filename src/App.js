@@ -1,10 +1,11 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import store from './redux/store';
 import Home from './components/Home';
-import Books from './components/Books';
-import Components from './components/Components';
-import store from './components/redux/store';
+import Components from './redux/categories/Components';
+import Books from './redux/books/Books';
+
 // end imports
 
 function App() {
