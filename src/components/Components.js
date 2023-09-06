@@ -1,15 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Main.css';
 import Header from './Header';
 
 function Components() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 2000);
+
+  if (isLoading) {
+    <div className="Container">
+      <Header />
+      return
+      {' '}
+      <div>Loading...</div>
+      ;
+    </div>;
+  }
+
   return (
     <div className="Container">
       <Header />
       <div>
-        categories
+        <h1 style={{ color: '#f88' }}>
+          !Welcome to the components page:
+          <br />
+          Please Note this part of the website is still under construction.
+        </h1>
       </div>
-
     </div>
   );
 }
