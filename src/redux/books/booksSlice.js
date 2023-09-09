@@ -1,39 +1,36 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+// end imports
 
 const initialState = {
-  books: [
-    {
-      item_id: 'item1',
-      title: 'The Great Gatsby',
-      author: 'John Smith',
-      category: 'Fiction',
-    },
-    {
-      item_id: 'item2',
-      title: 'Anna Karenina',
-      author: 'Leo Tolstoy',
-      category: 'Fiction',
-    },
-    {
-      item_id: 'item3',
-      title: 'The Selfish Gene',
-      author: 'Richard Dawkins',
-      category: 'Nonfiction',
-    },
-  ],
+  books: [],
+  status: 'idle',
+  error: null
 };
+
+
+export const addBookAsync = createAsyncThunk(
+  'books/addBookAsync',
+  async ({ app_id, newBook }) => {
+    const response = await axios.post(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${app_id}/books`, newBook);
+    return response.data; 
+  }
+);
+
+export const fetchBooksAsync = createAsyncThunk(
+  'books/fetchBooksAsync',
+  async (app_id) => {
+    const response = await axios.get(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${app_id}/books`);
+    return response.data;
+  }
+);
+
 
 const booksSlice = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    addBook: (state, action) => {
-      state.books.push(action.payload);
-    },
-    removeBook: (state, action) => {
-      const itemIdToRemove = action.payload.item_id;
-      state.books = state.books.filter((book) => book.item_id !== itemIdToRemove);
-    },
     updateProgress: (state, action) => {
       const { index } = action.payload;
       const book = state.books[index];
@@ -41,7 +38,27 @@ const booksSlice = createSlice({
         book.progress = Math.min(book.progress + 5, 100);
       }
     },
-  },
+  }, extraReducers: (builder) => {
+    builder
+      .addCase(addBookAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(addBookAsync.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.books.push(action.payload); // Add the new book to the state
+      })
+      .addCase(addBookAsync.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = 'something went wrong, please try again later';
+        console.error('Error adding book:', action.error); 
+      })
+      .addCase(fetchBooksAsync.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        if (Array.isArray(action.payload)) {
+          state.books = action.payload;
+        }
+      });
+  },  
 });
 
 export const { addBook, removeBook, updateProgress } = booksSlice.actions;
