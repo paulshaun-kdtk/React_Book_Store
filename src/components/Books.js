@@ -9,7 +9,7 @@ import './Main.css';
 
 const App = () => {
   const dispatch = useDispatch();
-  const [selectedApp] = useState('0ICO70fIeXQxoTuacmSl'); // Replace 'abc123' with your actual app ID
+  const [selectedApp] = useState('bMrmeF1Ldn440EWBDcT5');
 
   const [book, setBook] = useState({
     title: '',
@@ -22,32 +22,34 @@ const App = () => {
   };
 
   function generateUUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = Math.random() * 16 | 0; const
+        v = c === 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
   }
 
   const handleAddBook = async () => {
     const newBook = {
-      item_id: generateUUID(),
-      title: 'New Book',
-      author: 'New Author',
+      itemId: generateUUID(),
+      title: book.title,
+      author: book.author,
       category: 'Fiction',
     };
-  
+
     try {
-   await dispatch(addBookAsync({ app_id: selectedApp, newBook }));
+      await dispatch(addBookAsync({ appID: selectedApp, newBook }));
     } catch (error) {
       console.error('Error adding book:', error);
     }
   };
-  
 
   return (
     <div className="Container">
       <Header />
       <h1>My Bookstore</h1>
+      <BookList appID={selectedApp} />
+      <h1>Add Book</h1>
       <span>
         Title:
         <input
@@ -67,7 +69,6 @@ const App = () => {
         />
       </span>
       <button type="button" onClick={handleAddBook}>Add Book</button>
-      <BookList app_id={selectedApp} />
     </div>
   );
 };
