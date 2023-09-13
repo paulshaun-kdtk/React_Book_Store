@@ -1,163 +1,76 @@
 import React, { useState } from 'react';
-import './Main.css';
-import './Book.css';
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { useDispatch } from 'react-redux';
+import { addBookAsync } from '../redux/books/booksSlice';
+import BookList from './BooksList';
 import Header from './Header';
-import 'react-circular-progressbar/dist/styles.css';
+import './Main.css';
 
-function Book({
-  title, author, progress, category, onProgressUpdate,
-}) {
-  return (
-    <div className="bookCard">
+// end imports
 
-      <div className="bookInfo">
-        <div className="book">
-          <div className="bookDetails">
-            <span>
-              {' '}
-              {category}
-              {' '}
-              <br />
-              <b>
-                {' '}
-                {title}
-              </b>
-              <br />
-              <p>
-                {' '}
-                {author}
-                {' '}
-              </p>
-            </span>
+const App = () => {
+  const dispatch = useDispatch();
+  const [selectedApp] = useState('bMrmeF1Ldn440EWBDcT5');
 
-            <ul className="list">
-              <li>remove</li>
-              <li>edit</li>
-              <li>delete</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="progressDiv">
-          <CircularProgressbar
-            className="progress"
-            value={progress}
-            text={`${progress}%`}
-            styles={buildStyles({
-              textSize: '16px',
-              pathColor: `rgba(62, 152, 199, ${progress / 100})`,
-              textColor: '#f88',
-              trailColor: '#d6d6d6',
-            })}
-          />
-        </div>
-        <div className="onPBtn" style={{ display: 'flex', flexDirection: 'column', paddingInlineEnd: '20%' }}>
-          <i>Current Chapter</i>
-          <button type="button" onClick={onProgressUpdate}>Update Progress</button>
-        </div>
-
-      </div>
-    </div>
-  );
-}
-
-function useLocalStorage(key, initialValue) {
-  const [storedValue, setStoredValue] = React.useState(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      return initialValue;
-    }
+  const [book, setBook] = useState({
+    title: '',
+    author: '',
   });
 
-  const setValue = (value) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setBook({ ...book, [name]: value });
+  };
+
+  function generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = Math.random() * 16 | 0; const
+        v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
+  const handleAddBook = async () => {
+    const newBook = {
+      item_id: generateUUID(),
+      title: book.title,
+      author: book.author,
+      category: 'Fiction',
+    };
+
     try {
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      await dispatch(addBookAsync({ app_id: selectedApp, newBook }));
     } catch (error) {
-      console.log('Error saving to local storage');
+      console.error('Error adding book:', error);
     }
-  };
-
-  return [storedValue, setValue];
-}
-
-function AdditionForm() {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [category, setCategory] = useState('');
-  const [books, setBooks] = useLocalStorage('books', []);
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setBooks((prevBooks) => [
-      ...prevBooks,
-      {
-        title, author, category, progress: 0,
-      },
-    ]);
-    setTitle('');
-    setAuthor('');
-    setCategory('');
-  };
-
-  const onUpdateProgressBarClick = (index) => {
-    setBooks((prevBooks) => prevBooks.map((book, i) => (i === index
-      ? { ...book, progress: Math.min(book.progress + 5, 100) }
-      : book)));
   };
 
   return (
     <div className="Container">
       <Header />
-      <div id="dynamicDisplay">
-        {books.map((book, index) => (
-          <Book
-            key={index}
-            title={book.title}
-            author={book.author}
-            progress={book.progress}
-            category={book.category}
-            onProgressUpdate={() => onUpdateProgressBarClick(index)}
-          />
-        ))}
-      </div>
-
-      <div className="additionForm">
-        <h1> Add Book </h1>
-        <form onSubmit={onSubmit}>
-          <input
-            className="formInputTitle"
-            type="text"
-            placeholder="book title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="author"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
-          />
-          <button type="submit" className="formButton">
-            Submit
-          </button>
-        </form>
-      </div>
+      <h1>My Bookstore</h1>
+      <BookList app_id={selectedApp} />
+      <h1>Add Book</h1>
+      <span>
+        Title:
+        <input
+          type="text"
+          name="title"
+          value={book.title}
+          onChange={handleChange}
+        />
+      </span>
+      <span>
+        Author:
+        <input
+          type="text"
+          name="author"
+          value={book.author}
+          onChange={handleChange}
+        />
+      </span>
+      <button type="button" onClick={handleAddBook}>Add Book</button>
     </div>
   );
-}
+};
 
-export default AdditionForm;
+export default App;
