@@ -7,14 +7,6 @@ const initialState = {
   error: null,
 };
 
-export const addBookAsync = createAsyncThunk(
-  'books/addBookAsync',
-  async ({ app_id, newBook }) => {
-    const response = await axios.post(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${app_id}/books`, newBook);
-    return response.data;
-  },
-);
-
 export const fetchBooksAsync = createAsyncThunk(
   'books/fetchBooksAsync',
   async (app_id) => {
@@ -25,6 +17,15 @@ export const fetchBooksAsync = createAsyncThunk(
       author: response.data[item_id][0].author,
     }));
     return booksWithitem_ids;
+  },
+);
+
+export const addBookAsync = createAsyncThunk(
+  'books/addBookAsync',
+  async ({ app_id, newBook }, { dispatch }) => {
+    const response = await axios.post(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${app_id}/books`, newBook);
+    dispatch(fetchBooksAsync(app_id)); // fetch the updated list of books after adding a new book
+    return response.data;
   },
 );
 
@@ -49,12 +50,7 @@ export const deleteBookAsync = createAsyncThunk(
 const booksSlice = createSlice({
   name: 'books',
   initialState,
-  reducers: {
-    addBook: (state, action) => {
-      state.status = 'succeeded';
-      state.books.push(action.payload);
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(addBookAsync.pending, (state) => {

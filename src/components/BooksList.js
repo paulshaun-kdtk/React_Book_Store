@@ -2,9 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBooksAsync, deleteBookAsync } from '../redux/books/booksSlice';
 
-const app_id = 'bMrmeF1Ldn440EWBDcT5';
-
-const BookList = () => {
+const BookList = ({ app_id }) => {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books);
   const status = useSelector((state) => state.books.status);
