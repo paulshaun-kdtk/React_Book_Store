@@ -1,13 +1,13 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
-import Books from './components/Books';
 import Components from './components/Components';
-
+import Books from './components/Books';
 // end imports
 
 function App() {
   return (
+
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -15,6 +15,7 @@ function App() {
         <Route path="/categories" element={<Components />} />
       </Routes>
     </Router>
+
   );
 }
 
