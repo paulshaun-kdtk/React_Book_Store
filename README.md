@@ -39,7 +39,7 @@
 
 > 
 
-**[Math Magicians]** is a web app built using react. It's a basic app that allows a user to add books to a book collection.
+**[Book Store]** is a web app built using react. It's a basic app that allows a user to add books to a book collection.
 
 ## 🛠 Built With <a name="built-with"></a>
 
