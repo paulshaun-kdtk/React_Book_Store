@@ -25,7 +25,8 @@
     "jsx-a11y/no-noninteractive-element-interactions": "off",
     "no-bitwise": "off",
     "no-mixed-operators": "off",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "camelcase": "off"
   },
   "overrides": [
     {

@@ -31,14 +31,14 @@ const App = () => {
 
   const handleAddBook = async () => {
     const newBook = {
-      itemId: generateUUID(),
+      item_id: generateUUID(),
       title: book.title,
       author: book.author,
       category: 'Fiction',
     };
 
     try {
-      await dispatch(addBookAsync({ appID: selectedApp, newBook }));
+      await dispatch(addBookAsync({ app_id: selectedApp, newBook }));
     } catch (error) {
       console.error('Error adding book:', error);
     }
@@ -48,7 +48,7 @@ const App = () => {
     <div className="Container">
       <Header />
       <h1>My Bookstore</h1>
-      <BookList appID={selectedApp} />
+      <BookList app_id={selectedApp} />
       <h1>Add Book</h1>
       <span>
         Title:

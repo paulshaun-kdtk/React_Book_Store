@@ -9,35 +9,35 @@ const initialState = {
 
 export const addBookAsync = createAsyncThunk(
   'books/addBookAsync',
-  async ({ appID, newBook }) => {
-    const response = await axios.post(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${appID}/books`, newBook);
+  async ({ app_id, newBook }) => {
+    const response = await axios.post(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${app_id}/books`, newBook);
     return response.data;
   },
 );
 
 export const fetchBooksAsync = createAsyncThunk(
   'books/fetchBooksAsync',
-  async (appID) => {
-    const response = await axios.get(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${appID}/books`);
-    const booksWithItemIds = Object.keys(response.data).map((itemId) => ({
-      itemId,
-      title: response.data[itemId][0].title,
-      author: response.data[itemId][0].author,
+  async (app_id) => {
+    const response = await axios.get(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${app_id}/books`);
+    const booksWithitem_ids = Object.keys(response.data).map((item_id) => ({
+      item_id,
+      title: response.data[item_id][0].title,
+      author: response.data[item_id][0].author,
     }));
-    return booksWithItemIds;
+    return booksWithitem_ids;
   },
 );
 
 export const deleteBookAsync = createAsyncThunk(
   'books/deleteBookAsync',
-  async ({ appID, itemId }) => {
+  async ({ app_id, item_id }) => {
     try {
       const response = await axios.delete(
-        `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${appID}/books/${itemId}`,
+        `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${app_id}/books/${item_id}`,
       );
 
       if (response.status === 204 || response.status === 201) {
-        return itemId;
+        return item_id;
       }
       throw new Error(`Deletion failed with status code: ${response.status}`);
     } catch (error) {
@@ -72,7 +72,7 @@ const booksSlice = createSlice({
       .addCase(fetchBooksAsync.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.books = action.payload.map((book) => ({
-          itemId: book.itemId,
+          item_id: book.item_id,
           title: book.title,
           author: book.author,
         }));
@@ -82,7 +82,7 @@ const booksSlice = createSlice({
       })
       .addCase(deleteBookAsync.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.books = state.books.filter((book) => book.itemId !== action.payload);
+        state.books = state.books.filter((book) => book.item_id !== action.payload);
       })
       .addCase(deleteBookAsync.rejected, (state, action) => {
         state.status = 'failed';

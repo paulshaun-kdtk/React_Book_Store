@@ -2,22 +2,21 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBooksAsync, deleteBookAsync } from '../redux/books/booksSlice';
 
-const appID = 'bMrmeF1Ldn440EWBDcT5';
+const app_id = 'bMrmeF1Ldn440EWBDcT5';
 
 const BookList = () => {
   const dispatch = useDispatch();
-  // const books = useSelector((state) => Object.values(state.books.books));
   const books = useSelector((state) => state.books.books);
   const status = useSelector((state) => state.books.status);
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchBooksAsync(appID));
+      dispatch(fetchBooksAsync(app_id));
     }
   }, [status, dispatch]);
 
-  const handleDelete = (itemId) => {
-    dispatch(deleteBookAsync({ appID, itemId }));
+  const handleDelete = (item_id) => {
+    dispatch(deleteBookAsync({ app_id, item_id }));
   };
 
   if (status === 'loading') {
@@ -36,7 +35,7 @@ const BookList = () => {
     const { author } = book;
 
     bookElements.push(
-      <div key={book.itemId}>
+      <div>
         <h3 style={{ color: '#0290FF' }}>
           title:
           {title}
@@ -45,14 +44,18 @@ const BookList = () => {
           author:
           {author}
         </p>
-        <button type="button" onClick={() => handleDelete(book.itemId)}>Delete</button>
+        <button type="button" onClick={() => handleDelete(book.item_id)}>Delete</button>
       </div>,
     );
   }
   return (
     <div>
       <h2>Book List</h2>
-      {bookElements}
+      <div>
+        {' '}
+        {bookElements}
+        {' '}
+      </div>
     </div>
   );
 };
