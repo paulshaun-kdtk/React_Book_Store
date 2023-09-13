@@ -74,6 +74,11 @@
   border-right: 1px solid black;
 }
 
+.firstListItem:hover {
+  cursor: pointer;
+  color: red;
+}
+
 .additionForm > form > input {
   padding: 10px;
   background-color: #fff;
