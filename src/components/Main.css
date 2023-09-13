@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.Container {
+  width: 80%;
+  height: 80%;
+  margin: 10% auto;
+  background-color: #fafafa;
+  z-index: 2;
+}
+
+.Header {
+  display: flex;
+  width: 100%;
+  background-color: #fff;
+}
+
+.navItems {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.logo > a {
+  text-decoration: none;
+  color: #0290ff;
+  font-style: italic;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.menu > li > a {
+  color: #000;
+  font-size: 16px;
+  text-decoration: none;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 10px;
+}
+
+.logo > a:hover {
+  color: black;
+  font-size: 16px;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}

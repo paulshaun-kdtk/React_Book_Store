@@ -1,0 +1,97 @@
+.bookCard {
+  display: flex;
+  padding: 10px;
+  background-color: ghostwhite;
+}
+
+.bookInfo {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+}
+
+.book {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.bookDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.bookDetails > span {
+  padding-inline-start: 25%;
+  margin-top: 20px;
+}
+
+.bookDetails > span > b {
+  font-size: 24px;
+}
+
+.bookDetails > span > p {
+  color: #0290ff;
+  font-size: 16px;
+  font-family: 'Gill Sans', 'Gill Sans MT', sans-serif;
+}
+
+.progressDiv {
+  display: flex;
+  align-content: center;
+  padding-inline-end: 20%;
+}
+
+.progress {
+  width: 8rem;
+  height: 9.5rem;
+  padding-inline: 10rem;
+}
+
+.onPBtn > button {
+  margin: 10% auto;
+  background-color: #0290ff;
+  color: #fff;
+  border-radius: 3px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: 180%;
+}
+
+.list {
+  display: flex;
+  list-style: none;
+  margin-top: -2%;
+}
+
+.list > li {
+  padding-inline-end: 8px;
+  padding-inline-start: 8px;
+  border-right: 1px solid black;
+}
+
+.additionForm > form > input {
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #fafafa;
+  outline: none;
+  margin-right: 2%;
+}
+
+.formInputTitle {
+  width: 40%;
+}
+
+.formButton {
+  border: 1px solid #fafafa;
+  border-radius: 8px;
+  background-color: #0290ff;
+  padding: 14px;
+  padding-inline: 32px;
+  color: white;
+  cursor: pointer;
+}
