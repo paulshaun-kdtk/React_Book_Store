@@ -7,7 +7,7 @@ function Header() {
     <div className="Header">
       <nav className="navItems">
         <h1 className="logo">
-          <Link to="/">Boostore</Link>
+          <Link to="/">Boostore CMS</Link>
         </h1>
         <ul className="menu">
           <li><Link to="/books">books</Link></li>

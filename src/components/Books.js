@@ -47,28 +47,28 @@ const App = () => {
   return (
     <div className="Container">
       <Header />
-      <h1>My Bookstore</h1>
       <BookList app_id={selectedApp} />
-      <h1>Add Book</h1>
-      <span>
-        Title:
+      <h1 style={{ fontWeight: 'bold', color: '#888888' }}>Add Book</h1>
+      <span className="additionForm">
         <input
           type="text"
           name="title"
           value={book.title}
           onChange={handleChange}
+          placeholder="title"
+          style={{ width: '60%' }}
         />
-      </span>
-      <span>
-        Author:
+
         <input
           type="text"
           name="author"
           value={book.author}
           onChange={handleChange}
+          placeholder="author"
+
         />
+        <button type="button" onClick={handleAddBook}>Add Book</button>
       </span>
-      <button type="button" onClick={handleAddBook}>Add Book</button>
     </div>
   );
 };

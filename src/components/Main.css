@@ -49,3 +49,24 @@ body {
   align-items: center;
   list-style: none;
 }
+
+.additionForm > input {
+  background-color: #fff;
+  border: 1px solid #e8e8e8;
+  padding: 10px;
+  margin: 0 2% 0 0;
+}
+
+.additionForm > button {
+  color: #fff;
+  background-color: #0290ff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.additionForm > button:hover {
+  box-shadow: inset -3px -5px 47px rgba(0, 0, 0, 0.6);
+  padding: 12px;
+  color: #f88;
+}
