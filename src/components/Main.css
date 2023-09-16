@@ -7,7 +7,7 @@ body {
 .Container {
   width: 80%;
   height: 80%;
-  margin: 10% auto;
+  margin: auto;
   background-color: #fafafa;
   z-index: 2;
 }
@@ -26,20 +26,24 @@ body {
 .logo > a {
   text-decoration: none;
   color: #0290ff;
-  font-style: italic;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Montserrat', serif;
+  font-size: 1.875rem;
+  font-weight: bold;
+  font-stretch: normal;
 }
 
 .menu > li > a {
   color: #000;
-  font-size: 16px;
+  font-size: 0.813rem;
+  font-family: 'Monserrat', serif;
+  font-weight: normal;
   text-decoration: none;
-  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 1.9px;
   padding: 10px;
 }
 
 .logo > a:hover {
-  color: black;
+  color: #f88;
   font-size: 16px;
 }
 
@@ -48,4 +52,53 @@ body {
   justify-content: space-between;
   align-items: center;
   list-style: none;
+}
+
+.additionForm > input {
+  margin: 0 2% 0 0;
+  padding: 0.813rem;
+  border: 1px solid #e8e8e8;
+  background-color: #fff;
+  outline: none;
+}
+
+.additionForm > input::placeholder {
+  font-family: 'Montserrat', serif;
+  font-size: 1rem;
+  color: #c4c4c4;
+  width: 4.75rem;
+  height: 1.188rem;
+  letter-spacing: -0.15px;
+}
+
+.additionForm > button {
+  color: #fff;
+  background-color: #0290ff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  margin: 2% 0;
+}
+
+.additionForm > button:hover {
+  box-shadow: inset -3px -5px 47px rgba(0, 0, 0, 0.6);
+  padding: 12px;
+  color: #f88;
+}
+
+h1 {
+  color: #f88;
+}
+
+#SVG {
+  margin: 1% 0 0 66%;
+  color: #0290ff;
+}
+
+.Divider {
+  margin: 2% auto;
+  width: 75rem;
+  height: 0.125rem;
+  border: 1px solid #e8e8e8;
+  background-color: #e8e8e8;
 }
