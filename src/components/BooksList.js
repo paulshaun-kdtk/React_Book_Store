@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import { fetchBooksAsync, deleteBookAsync } from '../redux/books/booksSlice';
 import 'react-circular-progressbar/dist/styles.css';
-
+import './Book.css';
 // end imports
 
 const BookList = ({ app_id }) => {
@@ -41,48 +41,40 @@ const BookList = ({ app_id }) => {
     const { author } = book;
 
     bookElements.push(
-      <div style={{
-        display: 'flex', justifyContent: 'space-between', border: '1px solid #e8e8e8', padding: '10px', margin: '2% 5% 0 0', background: '#ffffff',
-      }}
-      >
+      <div className="listContainer">
         <div>
-          <ul style={{ listStyle: 'none' }}>
+          <ul>
             <li>
               {' '}
               <i>Fiction </i>
             </li>
-            <li style={{ fontSize: '1.375rem', fontWeight: 'bold' }}>
+            <li className="li1">
               {title}
             </li>
-            <li style={{ color: '#0290FF' }}>
+            <li className="li2">
               {author}
             </li>
           </ul>
 
-          <ul style={{ listStyle: 'none', display: 'flex' }}>
-            <li style={{ marginRight: '2%' }}>Comments</li>
+          <ul className="Actions">
+            <li className="li3">Comments</li>
             <li
+              className="li4"
               onClick={() => handleDelete(book.item_id)}
-              style={{
-                paddingInlineStart: '2%', borderLeft: '2px solid #e8e8e8', marginRight: '2%', cursor: 'pointer',
-              }}
             >
               Remove
             </li>
-            <li style={{ borderLeft: '2px solid #e8e8e8', paddingInlineStart: '2%' }}>Edit</li>
+            <li className="li5">Edit</li>
           </ul>
 
         </div>
 
-        <div style={{
-          width: '60%', display: 'flex', paddingInlineEnd: '10%', justifyContent: 'space-evenly',
-        }}
-        >
+        <div className="rContainer1">
 
-          <div style={{ width: '25%', display: 'flex', justifyContent: 'space-evenly' }}>
+          <div className="rContainer2">
             <CircularProgressbar value={percentage} />
             {' '}
-            <b style={{ margin: 'auto', padding: '8%' }}>
+            <b className="pText">
               {`${percentage}%`}
               {' '}
               <br />
@@ -91,15 +83,13 @@ const BookList = ({ app_id }) => {
             </b>
           </div>
 
-          <ul style={{ paddingInline: '5%', borderLeft: '1.4px solid #e8e8e8', listStyle: 'none' }}>
-            <li style={{ padding: '10px', fontSize: '0.813', fontWeight: '300' }}>Current Chapter</li>
-            <li style={{ padding: '10px', fontSize: '1rem', fontWeight: '600' }}>Chapter 7</li>
-            <li style={{ padding: '10px' }}>
+          <ul className="chapterSection">
+            <li className="cSecli1">Current Chapter</li>
+            <li className="cSecli2">Chapter 7</li>
+            <li>
               <button
+                className="cSecbtn"
                 type="button"
-                style={{
-                  backgroundColor: '#0290FF', padding: '10px', color: '#fff', border: 'none', cursor: 'pointer',
-                }}
               >
                 Update Chaper
               </button>

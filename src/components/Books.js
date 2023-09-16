@@ -4,7 +4,7 @@ import { addBookAsync } from '../redux/books/booksSlice';
 import BookList from './BooksList';
 import Header from './Header';
 import './Main.css';
-
+import './Book.css';
 // end imports
 
 const App = () => {
@@ -48,7 +48,8 @@ const App = () => {
     <div className="Container">
       <Header />
       <BookList app_id={selectedApp} />
-      <h1 style={{ fontWeight: 'bold', color: '#888888' }}>Add Book</h1>
+      <hr className="Divider" />
+      <h1>ADD NEW BOOK</h1>
       <span className="additionForm">
         <input
           type="text"
@@ -56,7 +57,7 @@ const App = () => {
           value={book.title}
           onChange={handleChange}
           placeholder="title"
-          style={{ width: '60%' }}
+          className="firstInput"
         />
 
         <input

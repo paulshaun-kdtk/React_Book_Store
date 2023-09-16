@@ -24,7 +24,7 @@ function Components() {
     <div className="Container">
       <Header />
       <div>
-        <h1 style={{ color: '#f88' }}>
+        <h1>
           !Welcome to the components page:
           <br />
           Please Note this part of the website is still under construction.
